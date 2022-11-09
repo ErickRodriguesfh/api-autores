@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.ebr.autores.model.Obra;
 import br.ebr.autores.model.Pais;
 import lombok.AllArgsConstructor;
@@ -33,11 +36,11 @@ public class AutorDTO {
 	private String email;
 	
 	@NotNull
+	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 	private LocalDate dataNascimento;
 	
 	@NotNull
-	private Pais pais;
-	
+	private String pais;
 	
 	private List<Obra> obras ;
 
