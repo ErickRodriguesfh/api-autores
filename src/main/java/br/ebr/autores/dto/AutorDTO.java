@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.ebr.autores.model.Obra;
-import br.ebr.autores.model.Pais;
+import br.ebr.autores.entidade.Obra;
+import br.ebr.autores.entidade.Pais;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,8 +39,8 @@ public class AutorDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 	private LocalDate dataNascimento;
 	
-	@NotNull
-	private String pais;
+	
+	private String sigla;
 	
 	private List<Obra> obras ;
 

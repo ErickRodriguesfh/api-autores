@@ -4,9 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import br.ebr.autores.entidade.Autor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import br.ebr.autores.entidade.Obra;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,28 +17,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ObraDTO {
-	
+public class PaisDTO {
+
 	
 	private Long id;
-	
-	@NotNull
 	private String nome;
+	private String sigla;
 
-	@NotNull
-	@Size(max = 240)
-	private String descricao;
 	
-	
-	private LocalDate dataPublicacao;
-	
-	private LocalDate dataExposicao;
-
-
-	private  List<Autor> autores;
-	
-	
-	
-	
-
 }

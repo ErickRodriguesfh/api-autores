@@ -1,7 +1,6 @@
-package br.ebr.autores.model;
+package br.ebr.autores.entidade;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,11 +29,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "tabela_autor")
+@Table(name = "autor")
 public class Autor {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "sq_autor")
 	private Long id;
 	
 	private String nomeCompleto;

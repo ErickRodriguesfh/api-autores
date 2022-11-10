@@ -1,4 +1,4 @@
-package br.ebr.autores.model;
+package br.ebr.autores.entidade;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,18 +29,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "tabela_obra")
+@Table(name = "obra")
 public class Obra {
 	
 
 		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		@GeneratedValue(generator = "sq_obra")
 		private Long id;
 	
 		private String nome;
 
 		private String descricao;
+		@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 		private LocalDate dataPublicacao;
+		
+		@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 		private LocalDate dataExposicao;
 
 		@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -1,8 +1,6 @@
-package br.ebr.autores.model;
+package br.ebr.autores.entidade;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,13 +14,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tabela_pais")
+@Table(name = "pais")
 public class Pais {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	private String sigla;
 
 	
 }
