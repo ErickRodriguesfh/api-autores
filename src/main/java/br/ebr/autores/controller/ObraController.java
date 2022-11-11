@@ -3,6 +3,8 @@ package br.ebr.autores.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +25,7 @@ public class ObraController {
 		private final ObraService obraService;
 	
 		@PostMapping
-		public ResponseEntity<ObraDTO> cadastrarObra(@RequestBody ObraDTO obraDTO){
+		public ResponseEntity<ObraDTO> cadastrarObra(@RequestBody  @Valid ObraDTO obraDTO){
 			
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
 					.buildAndExpand(obraService.cadastrarObra(obraDTO).getId()).toUri();

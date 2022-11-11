@@ -1,4 +1,4 @@
-package br.ebr.autores.controller.exceptions;
+package br.ebr.autores.exceptions;
 
 import java.time.LocalDateTime;
 

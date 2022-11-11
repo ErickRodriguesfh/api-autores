@@ -1,4 +1,4 @@
-package br.ebr.autores.controller.exceptions;
+package br.ebr.autores.exceptions;
 
 import java.time.LocalDateTime;
 
@@ -9,9 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import br.ebr.autores.exceptions.ObjectNotFoundException;
-import br.ebr.autores.exceptions.PSQLException;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {

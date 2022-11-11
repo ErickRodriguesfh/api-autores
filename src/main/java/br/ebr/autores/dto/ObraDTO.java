@@ -3,6 +3,7 @@ package br.ebr.autores.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,7 +27,8 @@ public class ObraDTO {
 	@NotNull
 	private String nome;
 
-	@NotNull
+
+	@NotBlank(message = "O  Campo descrição não pode ser nulo")
 	@Size(max = 240)
 	private String descricao;
 	

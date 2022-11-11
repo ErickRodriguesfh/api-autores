@@ -63,7 +63,6 @@ public class AutorService {
 
 	}
 
-	
 	public void verficaEmailExistente(AutorDTO autorDTO) {
 
 		Optional<Autor> autor = autorRepository.findByEmail(autorDTO.getEmail());
@@ -71,7 +70,6 @@ public class AutorService {
 		if (autor.isPresent() && !autor.get().getId().equals(autorDTO.getId())) {
 			throw new PSQLException("Email já cadastrado no sistema");
 		}
-
 	}
 
 }

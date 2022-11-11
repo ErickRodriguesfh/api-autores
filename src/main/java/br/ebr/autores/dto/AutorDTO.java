@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -26,25 +29,26 @@ public class AutorDTO {
 	
 	private Long id;
 	
-	@NotNull
+	@NotBlank(message = "O campo nome não pode ser vazio")
 	private String nomeCompleto;
 	
-	@NotNull
+	@NotBlank(message = "O campo sexo não pode ser vazio")
 	private String sexo;
 	
 	@Email
 	private String email;
 	
-	@NotNull
+	@NotBlank(message = "O campo data de nascimento não pode ser vazio")
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 	private LocalDate dataNascimento;
 	
-	
+	@NotBlank(message = "O campo país não pode ser vazio")
 	private Pais pais;
 	
 	private List<Obra> obras ;
 
-	@NotNull
+	@NotBlank(message = "O CPF não pode ser vazio")
+	@CPF
 	private String cpf;
 	
 	

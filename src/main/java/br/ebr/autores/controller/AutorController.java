@@ -3,6 +3,8 @@ package br.ebr.autores.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +26,7 @@ public class AutorController {
 	private final AutorService autorService;
 	
 	@PostMapping
-	public ResponseEntity<AutorDTO> cadastrarAutor(@RequestBody AutorDTO autorDTO){
+	public ResponseEntity<AutorDTO> cadastrarAutor(@RequestBody @Valid AutorDTO autorDTO){
 	
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
 				.buildAndExpand(autorService.cadastrarAutor(autorDTO).getId()).toUri();
