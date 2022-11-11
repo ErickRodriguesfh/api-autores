@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.ebr.autores.dto.PaisDTO;
@@ -30,7 +31,7 @@ public class PaisService {
 		
 		public List<PaisDTO> listarPaises(){
 			
-			return paisRepositorio.findAll().stream().map(x -> mapper.map(x, PaisDTO.class))
+			return paisRepositorio.findAll(Sort.by(Sort.Direction.ASC, "nome")).stream().map(x -> mapper.map(x, PaisDTO.class))
 					.collect(Collectors.toList());
 		}
 	

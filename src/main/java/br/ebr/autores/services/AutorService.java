@@ -1,9 +1,12 @@
 package br.ebr.autores.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.ebr.autores.dto.AutorDTO;
@@ -31,12 +34,24 @@ public class AutorService {
 		verficaEmailExistente(autorDTO);
 
 		BeanUtils.copyProperties(autorDTO, autor);
-		autor.setPais(paisService.validarPais(autorDTO.getSigla()));
+		autor.setPais(paisService.validarPais(autor.getPais().getSigla()));
 
 		return autorRepository.save(autor);
 
 	}
 
+	
+	public List<AutorDTO> listarAutores(){
+		
+		return autorRepository.findAll(Sort.by(Sort.Direction.ASC, "nomeCompleto")).stream().
+				map(x -> mapper.map(x, AutorDTO.class)).collect(Collectors.toList());
+		
+	}
+	
+	public Autor buscarPeloId(Long id) {
+		return autorRepository.findById(id).get();
+	}
+	
 	
 	public void verificarCpfExistente(AutorDTO autorDTO) {
 

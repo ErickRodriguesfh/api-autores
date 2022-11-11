@@ -1,8 +1,10 @@
 package br.ebr.autores.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,15 +21,20 @@ import lombok.RequiredArgsConstructor;
 public class AutorController {
 
 	
-	private final AutorService autorServico;
+	private final AutorService autorService;
 	
 	@PostMapping
 	public ResponseEntity<AutorDTO> cadastrarAutor(@RequestBody AutorDTO autorDTO){
 	
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-				.buildAndExpand(autorServico.cadastrarAutor(autorDTO).getId()).toUri();
+				.buildAndExpand(autorService.cadastrarAutor(autorDTO).getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<AutorDTO>> listarAutores(){
+		return ResponseEntity.ok().body(autorService.listarAutores());
 	}
 	
 	

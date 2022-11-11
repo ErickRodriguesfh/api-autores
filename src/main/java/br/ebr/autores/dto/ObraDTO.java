@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.ebr.autores.entidade.Autor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,13 +30,13 @@ public class ObraDTO {
 	@Size(max = 240)
 	private String descricao;
 	
-	
+	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 	private LocalDate dataPublicacao;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 	private LocalDate dataExposicao;
 
-
-	private  List<Autor> autores;
+	private  List<AutorDTO> autores;
 	
 	
 	

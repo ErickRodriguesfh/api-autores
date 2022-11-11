@@ -40,7 +40,7 @@ public class AutorDTO {
 	private LocalDate dataNascimento;
 	
 	
-	private String sigla;
+	private Pais pais;
 	
 	private List<Obra> obras ;
 
