@@ -38,16 +38,16 @@ public class AutorDTO {
 	@Email
 	private String email;
 	
-	@NotBlank(message = "O campo data de nascimento não pode ser vazio")
+	@NotNull(message = "O campo data de nascimento não pode ser vazio")
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 	private LocalDate dataNascimento;
 	
-	@NotBlank(message = "O campo país não pode ser vazio")
+	@NotNull
 	private Pais pais;
 	
 	private List<Obra> obras ;
 
-	@NotBlank(message = "O CPF não pode ser vazio")
+	@NotBlank(message = "campo CPF não pode ser vazio")
 	@CPF
 	private String cpf;
 	

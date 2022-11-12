@@ -19,8 +19,5 @@ public class StandardError {
 		private String error;
 		private String path;
 		
-		
-		
-	
-	
+
 }

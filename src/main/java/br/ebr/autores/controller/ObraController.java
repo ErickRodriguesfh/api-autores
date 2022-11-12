@@ -22,23 +22,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ObraController {
 
-		private final ObraService obraService;
-	
-		@PostMapping
-		public ResponseEntity<ObraDTO> cadastrarObra(@RequestBody  @Valid ObraDTO obraDTO){
-			
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-					.buildAndExpand(obraService.cadastrarObra(obraDTO).getId()).toUri();
-			
-			return ResponseEntity.created(uri).build();
-			
-		}
-		
-		@GetMapping
-		public ResponseEntity<List<ObraDTO>> listarObras(){
-			return ResponseEntity.ok().body(obraService.listarObras());
-		}
-	
-	
-	
+	private final ObraService obraService;
+
+	@PostMapping
+	public ResponseEntity<ObraDTO> cadastrarObra(@RequestBody @Valid ObraDTO obraDTO) {
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+				.buildAndExpand(obraService.cadastrarObra(obraDTO).getId()).toUri();
+
+		return ResponseEntity.created(uri).build();
+
+	}
+
+	@GetMapping
+	public ResponseEntity<List<ObraDTO>> listarObras() {
+		return ResponseEntity.ok().body(obraService.listarObras());
+	}
+
 }

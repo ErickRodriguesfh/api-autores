@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.ebr.autores.entidade.Autor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +27,7 @@ public class ObraDTO {
 	private String nome;
 
 
-	@NotBlank(message = "O  Campo descrição não pode ser nulo")
+	@NotBlank(message = "Campo descrição não pode ser vazio")
 	@Size(max = 240)
 	private String descricao;
 	

@@ -6,7 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,28 +24,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AutorController {
 
-	
 	private final AutorService autorService;
-	
+
 	@PostMapping
-	public ResponseEntity<AutorDTO> cadastrarAutor(@RequestBody @Valid AutorDTO autorDTO){
-	
+	public ResponseEntity<AutorDTO> cadastrarAutor(@RequestBody @Valid AutorDTO autorDTO) {
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
 				.buildAndExpand(autorService.cadastrarAutor(autorDTO).getId()).toUri();
-		
+
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<AutorDTO>> listarAutores(){
+	public ResponseEntity<List<AutorDTO>> listarAutores() {
 		return ResponseEntity.ok().body(autorService.listarAutores());
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> excluirAutor(@PathVariable Long id) {
+		autorService.excluirAutor(id);
+		return ResponseEntity.noContent().build();
+	}
+
 }
