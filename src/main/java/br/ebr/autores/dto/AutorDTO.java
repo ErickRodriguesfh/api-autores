@@ -42,12 +42,11 @@ public class AutorDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 	private LocalDate dataNascimento;
 	
-	@NotNull
+	
 	private Pais pais;
 	
 	private List<Obra> obras ;
 
-	@NotBlank(message = "campo CPF não pode ser vazio")
 	@CPF
 	private String cpf;
 	

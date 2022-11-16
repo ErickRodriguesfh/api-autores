@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class AutorController {
 
 	private final AutorService autorService;
+	
+	private final ModelMapper mapper;
 
 	@PostMapping
 	public ResponseEntity<AutorDTO> cadastrarAutor(@RequestBody @Valid AutorDTO autorDTO) {
@@ -45,5 +49,12 @@ public class AutorController {
 		autorService.excluirAutor(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@PutMapping
+	public ResponseEntity<AutorDTO> atualizarAutor(@RequestBody AutorDTO autorDTO){
+		return ResponseEntity.ok().body(mapper.map(autorService.atualizarAutor(autorDTO), AutorDTO.class));
+	}
+	
+	
 
 }

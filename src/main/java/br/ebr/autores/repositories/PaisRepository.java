@@ -4,8 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.ebr.autores.entidade.Pais;
 
+
 public interface PaisRepository extends JpaRepository<Pais, Long> {
 
-		Pais findBySigla(String sigla);
+	Pais findBySigla(String sigla);
 			
 }
