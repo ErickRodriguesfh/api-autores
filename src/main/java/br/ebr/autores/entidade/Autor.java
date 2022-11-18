@@ -52,7 +52,7 @@ public class Autor {
 	private Pais pais;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "autores")
+	@ManyToMany
 	private List<Obra> obras ;
 	
 	@Column(unique = true)

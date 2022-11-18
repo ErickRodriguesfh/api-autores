@@ -45,7 +45,7 @@ public class ObraController {
 	}
 
 	@PutMapping
-	public ResponseEntity<ObraDTO> atualizarAutor(@RequestBody ObraDTO obraDTO) {
+	public ResponseEntity<ObraDTO> atualizarObra(@RequestBody ObraDTO obraDTO) {
 		return ResponseEntity.ok().body(mapper.map(obraService.atualizarObra(obraDTO), ObraDTO.class));
 	}
 

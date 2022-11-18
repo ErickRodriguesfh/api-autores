@@ -27,13 +27,15 @@ public class ObraService {
 	public Obra cadastrarObra(ObraDTO obraDTO) {
 		
 		Obra obra = new Obra();
-		
-		List<Autor> autores = obraDTO.getAutores().stream().map(x -> autorService.buscarPeloId(x.getId()))
-				.collect(Collectors.toList());
-
 		BeanUtils.copyProperties(obraDTO, obra);
+
+		if(obra.getAutores() != null) {
+			List<Autor> autores = obraDTO.getAutores().stream().map(x -> autorService.buscarPeloId(x.getId()))
+					.collect(Collectors.toList());
+			obra.setAutores(autores);
+		}
 		
-		obra.setAutores(autores);
+
 
 		validarDatas(obraDTO);
 		return obraRepository.save(obra);

@@ -6,6 +6,7 @@ import br.ebr.autores.entidade.Obra;
 import br.ebr.autores.exceptions.ObjectNotFoundException;
 import br.ebr.autores.exceptions.RegraNegocioException;
 import br.ebr.autores.repositories.AutorRepository;
+import br.ebr.autores.repositories.ObraRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -26,14 +27,22 @@ public class AutorService {
 
 	private final PaisService paisService;
 
+	private final ObraRepository obraRepository;
+
 	public Autor cadastrarAutor(AutorDTO autorDTO) {
 		Autor autor = new Autor();
+		BeanUtils.copyProperties(autorDTO, autor);
+
+		if(autorDTO.getObras() != null) {
+
+			List<Obra> obras = autorDTO.getObras().stream().map(x -> obraRepository.findById(x.getId()).get())
+							.collect(Collectors.toList());
+			autor.setObras(obras);
+		}
 
 		verificarCpfExistente(autorDTO);
 		verficarEmailExistente(autorDTO);
 		verificarPais(autorDTO);
-		BeanUtils.copyProperties(autorDTO, autor);
-		
 		autor.setPais(paisService.validarPais(autor.getPais().getSigla()));
 
 		return autorRepository.save(autor);
@@ -46,7 +55,7 @@ public class AutorService {
 	}
 
 	public Autor buscarPeloId(Long id) {
-		return autorRepository.findById(id).get();
+		return autorRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
 
 	public void excluirAutor(Long id) {
@@ -63,18 +72,17 @@ public class AutorService {
 
 	public Autor atualizarAutor(AutorDTO autorDTO) {
 		return autorRepository.saveAndFlush(mapper.map(autorDTO, Autor.class));
-		
 	}
-
 
 	public void verificarCpfExistente(AutorDTO autorDTO) {
 
-		Optional<Autor> autor = autorRepository.findByCpf(autorDTO.getCpf());
+		if(autorDTO.getCpf() != null) {
+			Optional<Autor> autor = autorRepository.findByCpf(autorDTO.getCpf());
 
-		if (autor.isPresent() && !autor.get().getId().equals(autorDTO.getId())) {
-			throw new RegraNegocioException("CPF Já cadastrado no sistema");
+			if (autor.isPresent() && !autor.get().getId().equals(autorDTO.getId())) {
+				throw new RegraNegocioException("CPF Já cadastrado no sistema");
+			}
 		}
-
 	}
 
 	public void verficarEmailExistente(AutorDTO autorDTO) {
@@ -95,10 +103,18 @@ public class AutorService {
 		throw new RegraNegocioException("Não foi possível excluir o autor pois o mesmo possuí obras");
 	}
 
-	public void verificarPais(AutorDTO autorDTO) {
-		if (autorDTO.getPais().getSigla() != "BR" && autorDTO.getCpf() != null) {
+	public boolean verificarPais(AutorDTO autorDTO) {
+
+		if (autorDTO.getPais().getSigla().equalsIgnoreCase("BR") && autorDTO.getCpf() != null) {
+			return true;
+		}
+		else if (autorDTO.getPais().getSigla() != "BR" && autorDTO.getCpf() != null){
 			throw new RegraNegocioException("O Campo CPF não é nescessário pois o autor não é brasileiro");
 		}
+		else if (autorDTO.getPais().getSigla().equalsIgnoreCase("BR") && autorDTO.getCpf() == null ){
+			throw new RegraNegocioException("O Campo CPF não pode ser nulo");
+		}
+		return true;
 	}
 
 }
